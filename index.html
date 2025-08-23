@@ -1,80 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShitzuInu Official</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
 </head>
-<body class="bg-gray-900 text-white font-sans">
-  <!-- Header -->
-  <header class="flex justify-between items-center p-4 bg-gray-800 shadow">
-    <!-- Left Logo -->
-    <a href="https://shitzuinuofficial-ui.github.io/">
-      <img src="https://shitzuinuofficial-ui.github.io/shitzuInuLogo.png" alt="ShitzuInu Logo" class="h-12">
-    </a>
-    <nav>
-      <ul class="flex space-x-6">
-        <li><a href="#about" class="hover:text-yellow-400">About</a></li>
-        <li><a href="#roadmap" class="hover:text-yellow-400">Roadmap</a></li>
-        <li><a href="#contact" class="hover:text-yellow-400">Contact</a></li>
-      </ul>
-    </nav>
-    <!-- Right Logo -->
-    <a href="https://shitzuinuofficial-ui.github.io/">
-      <img src="https://shitzuinuofficial-ui.github.io/shitzuInuLogo.png" alt="ShitzuInu Logo" class="h-12">
-    </a>
+<body class="bg-gray-900 text-white">
+
+  <!-- 🔥 Crypto Ticker Start -->
+  <div id="crypto-ticker" style="background:#000; color:#0f0; padding:8px; white-space:nowrap; overflow:hidden;">
+    <span id="ticker-content">Loading crypto prices...</span>
+  </div>
+  <script>
+    async function loadTicker() {
+      try {
+        const coins = ['bitcoin','ethereum','shiba-inu','dogecoin'];  
+        const url = `https://api.coingecko.com/api/v3/simple/price?ids=${coins.join(',')}&vs_currencies=usd`;
+        const res = await fetch(url);
+        const data = await res.json();
+        let content = '';
+        coins.forEach(c => {
+          const price = data[c]?.usd;
+          if (price) {
+            content += `${c.toUpperCase()}: $${price} │ `;
+          }
+        });
+        document.getElementById('ticker-content').innerText = content;
+        const ticker = document.getElementById('crypto-ticker');
+        let x = ticker.offsetWidth;
+        setInterval(() => {
+          x--;
+          if (x < -ticker.scrollWidth) x = ticker.offsetWidth;
+          ticker.scrollLeft = -x;
+        }, 30);
+      } catch (err) {
+        document.getElementById('ticker-content').innerText = "Error loading prices";
+      }
+    }
+    loadTicker();
+  </script>
+  <!-- 🔥 Crypto Ticker End -->
+
+  <!-- 🔥 Header -->
+  <header class="flex items-center justify-between p-4 bg-gray-800">
+    <img src="https://github.com/shitzuinuofficial-ui/shitzuinuofficial-ui.github.io/blob/main/assets/logo1.png?raw=true" alt="Logo 1" class="h-12">
+    <h1 class="text-2xl font-bold">ShitzuInu Official</h1>
+    <img src="https://github.com/shitzuinuofficial-ui/shitzuinuofficial-ui.github.io/blob/main/assets/logo2.png?raw=true" alt="Logo 2" class="h-12">
   </header>
 
-  <!-- Hero Section -->
-  <section class="text-center py-16 bg-gray-900">
-    <img src="https://shitzuinuofficial-ui.github.io/hero_image.png" alt="Hero Image" class="mx-auto mb-8 rounded-xl shadow-lg">
-    <h1 class="text-4xl md:text-6xl font-bold mb-4">Welcome to ShitzuInu</h1>
-    <p class="text-lg md:text-xl text-gray-300">The official meme token project on Base & Ethereum</p>
+  <!-- 🔥 Hero Section -->
+  <section class="text-center py-16 bg-gray-700">
+    <h2 class="text-4xl font-bold mb-4">Welcome to ShitzuInu</h2>
+    <p class="text-lg">The ultimate meme token community project.</p>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="py-16 px-6 max-w-4xl mx-auto text-center">
+  <!-- 🔥 About Section -->
+  <section class="py-12 px-6 text-center">
     <h2 class="text-3xl font-bold mb-4">About ShitzuInu</h2>
-    <p class="text-gray-300 leading-relaxed">
-      ShitzuInu is a fun, community-driven meme token designed to bring humor, utility, and innovation together.
-      With a total supply of 1 quadrillion tokens, we aim to build a strong ecosystem on Ethereum and Base networks.
-    </p>
+    <p class="max-w-2xl mx-auto">ShitzuInu is a decentralized meme token created for fun, community engagement, and utility-driven goals. We aim to build a strong ecosystem while rewarding our holders.</p>
   </section>
 
-  <!-- Roadmap Section -->
-  <section id="roadmap" class="py-16 px-6 bg-gray-800">
-    <h2 class="text-3xl font-bold mb-8 text-center">Roadmap</h2>
-    <div class="grid md:grid-cols-3 gap-8 text-center">
-      <div class="p-6 bg-gray-700 rounded-xl shadow">
-        <h3 class="text-xl font-semibold mb-2">Phase 1</h3>
-        <p class="text-gray-300">Launch, community building, and token distribution.</p>
-      </div>
-      <div class="p-6 bg-gray-700 rounded-xl shadow">
-        <h3 class="text-xl font-semibold mb-2">Phase 2</h3>
-        <p class="text-gray-300">DEX listings, meme campaigns, and partnerships.</p>
-      </div>
-      <div class="p-6 bg-gray-700 rounded-xl shadow">
-        <h3 class="text-xl font-semibold mb-2">Phase 3</h3>
-        <p class="text-gray-300">DAO launch, staking, and cross-chain expansion.</p>
-      </div>
-    </div>
-  </section>
+  <!-- 🔥 Team Section Removed -->
+  <!-- 🔥 NFT Section Removed -->
 
-  <!-- Contact Section -->
-  <section id="contact" class="py-16 px-6 max-w-3xl mx-auto text-center">
-    <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
-    <p class="text-gray-300 mb-6">Join our community and stay updated:</p>
-    <div class="flex justify-center space-x-6">
-      <a href="https://twitter.com" class="hover:text-yellow-400">Twitter</a>
-      <a href="https://t.me" class="hover:text-yellow-400">Telegram</a>
-      <a href="mailto:info@shitzuinu.com" class="hover:text-yellow-400">Email</a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-gray-800 py-6 text-center text-gray-400">
+  <!-- 🔥 Footer -->
+  <footer class="bg-gray-800 text-center p-4 mt-8">
     <p>&copy; 2025 ShitzuInu. All rights reserved.</p>
   </footer>
+
 </body>
 </html>
