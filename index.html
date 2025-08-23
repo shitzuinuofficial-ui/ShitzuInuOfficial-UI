@@ -4,83 +4,157 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShitzuInu Official</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fredoka+One&family=Poppins&display=swap" rel="stylesheet">
 
   <style>
-    /* Ticker styles */
-    .ticker-wrap {
-      position: relative;
+    :root {
+      --primary: #6a40bf;
+      --secondary: #ff9e01;
+      --accent: #38b6ff;
+      --dark: #1a1a2e;
+      --light: #f8f9fa;
+      --gradient: linear-gradient(135deg, var(--primary), var(--accent));
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--dark);
+      background-color: var(--light);
+      line-height: 1.6;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: rgba(26,26,46,0.95);
+      position: fixed;
       width: 100%;
-      overflow: hidden;
-      background: #111;
-      height: 40px;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 5%;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
     }
-    .ticker {
-      display: inline-block;
-      white-space: nowrap;
-      padding-right: 100%;
-      animation: ticker 40s linear infinite;
+
+    .logo {
+      height: 50px;
+      transition: transform 0.3s;
     }
-    .ticker-item {
-      display: inline-block;
-      padding: 0 2rem;
-      font-size: 1rem;
-      color: #0ff;
+    .logo:hover { transform: scale(1.05); }
+
+    .hero {
+      padding-top: 120px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(106,64,191,0.1), rgba(56,182,255,0.1));
     }
-    @keyframes ticker {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
+    .hero-img {
+      max-width: 400px;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      margin-bottom: 2rem;
     }
+    .hero-text p {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    /* Crypto Ticker */
+    .ticker-container { background: var(--dark); color: white; padding: 10px 0; overflow:hidden; width:100%; border-bottom:2px solid var(--secondary);}
+    .ticker { display:flex; animation: ticker-scroll 60s linear infinite; white-space: nowrap; }
+    .ticker-item { display:flex; align-items:center; margin:0 20px; font-family: 'Bebas Neue', sans-serif; font-size: 18px; }
+    .ticker-symbol { font-weight:bold; margin-right:5px; color: var(--secondary); }
+    .ticker-price { margin-right:10px; }
+    .ticker-change { padding:2px 6px; border-radius:4px; font-size:0.8rem; }
+    .positive { background-color: #4caf50; }
+    .negative { background-color: #f44336; }
+    @keyframes ticker-scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+    footer {
+      background-color: var(--dark);
+      color:white;
+      text-align:center;
+      padding:40px 20px;
+    }
+    .footer-logo { height:60px; margin-bottom:20px; opacity:0.8; }
+
   </style>
 </head>
-<body class="bg-gray-900 text-white">
+<body>
 
-  <!-- Header with logo -->
-  <header class="p-4 bg-gray-800 flex justify-between items-center">
-    <img src="https://github.com/shitzuinuofficial-ui/shitzuinuofficial-ui.github.io/blob/main/assets/logo.png?raw=true" alt="ShitzuInu Logo" class="h-12">
-    <h1 class="text-xl font-bold">ShitzuInu Official</h1>
-  </header>
+<header>
+  <!-- ShitzuInu Logo -->
+  <img src="https://shitzuinuofficial-ui.github.io/shitzuInuLogo.png" alt="ShitzuInu Logo" class="logo">
+  <!-- Hero image as second logo -->
+  <img src="https://shitzuinuofficial-ui.github.io/hero%20image.png" alt="Hero Logo" class="logo">
+</header>
 
-  <!-- Crypto ticker -->
-  <div class="ticker-wrap">
-    <div id="ticker" class="ticker"></div>
+<!-- Crypto Ticker -->
+<div class="ticker-container">
+  <div id="ticker" class="ticker">
+    <!-- JS will populate live top 10 coins -->
   </div>
+</div>
 
-  <!-- Hero section -->
-  <section class="text-center py-20">
-    <h2 class="text-4xl font-bold mb-6">Welcome to ShitzuInu</h2>
-    <p class="max-w-xl mx-auto text-lg text-gray-300">
-      The future of meme tokens, built on transparency, community, and innovation.
-    </p>
-  </section>
+<!-- Hero Section -->
+<section class="hero">
+  <img src="https://shitzuinuofficial-ui.github.io/hero%20image.png" class="hero-img" alt="ShitzuInu Hero">
+  <div class="hero-text">
+    <h1 class="text-4xl font-bold mb-6">Welcome to ShitzuInu</h1>
+    <p>The playful meme token taking crypto to the next level!</p>
+  </div>
+</section>
 
-  <!-- Footer -->
-  <footer class="p-6 bg-gray-800 text-center">
-    <img src="https://github.com/shitzuinuofficial-ui/shitzuinuofficial-ui.github.io/blob/main/assets/logo.png?raw=true" alt="ShitzuInu Logo" class="h-10 mx-auto mb-4">
-    <p>&copy; 2025 ShitzuInu. All rights reserved.</p>
-  </footer>
+<!-- Footer -->
+<footer>
+  <img src="https://shitzuinuofficial-ui.github.io/shitzuInuLogo.png" class="footer-logo" alt="ShitzuInu Logo">
+  <p>&copy; 2025 ShitzuInu. All rights reserved.</p>
+</footer>
 
-  <!-- CoinGecko API Script -->
-  <script>
-    async function loadTicker() {
-      try {
-        let res = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1");
-        let data = await res.json();
-        let ticker = document.getElementById("ticker");
-        ticker.innerHTML = "";
-        data.forEach(coin => {
-          let item = document.createElement("span");
-          item.className = "ticker-item";
-          item.textContent = `${coin.name} (${coin.symbol.toUpperCase()}): $${coin.current_price}`;
-          ticker.appendChild(item);
-        });
-      } catch (err) {
-        console.error("Ticker load error:", err);
-      }
-    }
-    loadTicker();
-    setInterval(loadTicker, 60000); // refresh every 60s
-  </script>
+<script>
+async function loadTicker() {
+  try {
+    const res = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1");
+    const data = await res.json();
+    const ticker = document.getElementById("ticker");
+    ticker.innerHTML = "";
+
+    data.forEach(coin => {
+      const item = document.createElement("div");
+      item.className = "ticker-item";
+
+      const symbol = document.createElement("span");
+      symbol.className = "ticker-symbol";
+      symbol.textContent = coin.symbol.toUpperCase();
+
+      const price = document.createElement("span");
+      price.className = "ticker-price";
+      price.textContent = `$${coin.current_price.toLocaleString()}`;
+
+      const change = document.createElement("span");
+      change.className = "ticker-change " + (coin.price_change_percentage_24h >= 0 ? "positive" : "negative");
+      change.textContent = `${coin.price_change_percentage_24h.toFixed(2)}%`;
+
+      item.appendChild(symbol);
+      item.appendChild(price);
+      item.appendChild(change);
+      ticker.appendChild(item);
+    });
+  } catch (err) {
+    console.error("Ticker load error:", err);
+  }
+}
+
+loadTicker();
+setInterval(loadTicker, 60000);
+</script>
 
 </body>
 </html>
