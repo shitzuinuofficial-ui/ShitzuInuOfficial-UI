@@ -4,70 +4,83 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShitzuInu Official</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <style>
+    /* Ticker styles */
+    .ticker-wrap {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background: #111;
+      height: 40px;
+    }
+    .ticker {
+      display: inline-block;
+      white-space: nowrap;
+      padding-right: 100%;
+      animation: ticker 40s linear infinite;
+    }
+    .ticker-item {
+      display: inline-block;
+      padding: 0 2rem;
+      font-size: 1rem;
+      color: #0ff;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+  </style>
 </head>
 <body class="bg-gray-900 text-white">
 
-  <!-- 🔥 Crypto Ticker Start -->
-  <div id="crypto-ticker" style="background:#000; color:#0f0; padding:8px; white-space:nowrap; overflow:hidden;">
-    <span id="ticker-content">Loading crypto prices...</span>
+  <!-- Header with logo -->
+  <header class="p-4 bg-gray-800 flex justify-between items-center">
+    <img src="https://github.com/shitzuinuofficial-ui/shitzuinuofficial-ui.github.io/blob/main/assets/logo.png?raw=true" alt="ShitzuInu Logo" class="h-12">
+    <h1 class="text-xl font-bold">ShitzuInu Official</h1>
+  </header>
+
+  <!-- Crypto ticker -->
+  <div class="ticker-wrap">
+    <div id="ticker" class="ticker"></div>
   </div>
+
+  <!-- Hero section -->
+  <section class="text-center py-20">
+    <h2 class="text-4xl font-bold mb-6">Welcome to ShitzuInu</h2>
+    <p class="max-w-xl mx-auto text-lg text-gray-300">
+      The future of meme tokens, built on transparency, community, and innovation.
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="p-6 bg-gray-800 text-center">
+    <img src="https://github.com/shitzuinuofficial-ui/shitzuinuofficial-ui.github.io/blob/main/assets/logo.png?raw=true" alt="ShitzuInu Logo" class="h-10 mx-auto mb-4">
+    <p>&copy; 2025 ShitzuInu. All rights reserved.</p>
+  </footer>
+
+  <!-- CoinGecko API Script -->
   <script>
     async function loadTicker() {
       try {
-        const coins = ['bitcoin','ethereum','shiba-inu','dogecoin'];  
-        const url = `https://api.coingecko.com/api/v3/simple/price?ids=${coins.join(',')}&vs_currencies=usd`;
-        const res = await fetch(url);
-        const data = await res.json();
-        let content = '';
-        coins.forEach(c => {
-          const price = data[c]?.usd;
-          if (price) {
-            content += `${c.toUpperCase()}: $${price} │ `;
-          }
+        let res = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1");
+        let data = await res.json();
+        let ticker = document.getElementById("ticker");
+        ticker.innerHTML = "";
+        data.forEach(coin => {
+          let item = document.createElement("span");
+          item.className = "ticker-item";
+          item.textContent = `${coin.name} (${coin.symbol.toUpperCase()}): $${coin.current_price}`;
+          ticker.appendChild(item);
         });
-        document.getElementById('ticker-content').innerText = content;
-        const ticker = document.getElementById('crypto-ticker');
-        let x = ticker.offsetWidth;
-        setInterval(() => {
-          x--;
-          if (x < -ticker.scrollWidth) x = ticker.offsetWidth;
-          ticker.scrollLeft = -x;
-        }, 30);
       } catch (err) {
-        document.getElementById('ticker-content').innerText = "Error loading prices";
+        console.error("Ticker load error:", err);
       }
     }
     loadTicker();
+    setInterval(loadTicker, 60000); // refresh every 60s
   </script>
-  <!-- 🔥 Crypto Ticker End -->
-
-  <!-- 🔥 Header -->
-  <header class="flex items-center justify-between p-4 bg-gray-800">
-    <img src="https://github.com/shitzuinuofficial-ui/shitzuinuofficial-ui.github.io/blob/main/assets/logo1.png?raw=true" alt="Logo 1" class="h-12">
-    <h1 class="text-2xl font-bold">ShitzuInu Official</h1>
-    <img src="https://github.com/shitzuinuofficial-ui/shitzuinuofficial-ui.github.io/blob/main/assets/logo2.png?raw=true" alt="Logo 2" class="h-12">
-  </header>
-
-  <!-- 🔥 Hero Section -->
-  <section class="text-center py-16 bg-gray-700">
-    <h2 class="text-4xl font-bold mb-4">Welcome to ShitzuInu</h2>
-    <p class="text-lg">The ultimate meme token community project.</p>
-  </section>
-
-  <!-- 🔥 About Section -->
-  <section class="py-12 px-6 text-center">
-    <h2 class="text-3xl font-bold mb-4">About ShitzuInu</h2>
-    <p class="max-w-2xl mx-auto">ShitzuInu is a decentralized meme token created for fun, community engagement, and utility-driven goals. We aim to build a strong ecosystem while rewarding our holders.</p>
-  </section>
-
-  <!-- 🔥 Team Section Removed -->
-  <!-- 🔥 NFT Section Removed -->
-
-  <!-- 🔥 Footer -->
-  <footer class="bg-gray-800 text-center p-4 mt-8">
-    <p>&copy; 2025 ShitzuInu. All rights reserved.</p>
-  </footer>
 
 </body>
 </html>
