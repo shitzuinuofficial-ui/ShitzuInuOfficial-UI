@@ -1,157 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShitzuInu - The Playful Meme Token</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fredoka+One&family=Poppins&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #6a40bf;
-            --secondary: #ff9e01;
-            --accent: #38b6ff;
-            --dark: #1a1a2e;
-            --light: #f8f9fa;
-            --gradient: linear-gradient(135deg, var(--primary), var(--accent));
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShitzuInu</title>
 
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: 'Poppins', sans-serif; color: var(--dark); background-color: var(--light); line-height: 1.6; overflow-x:hidden; }
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        /* Crypto Ticker */
-        .ticker-container { background: var(--dark); color: white; padding: 10px 0; overflow:hidden; position: relative; width:100%; border-bottom:2px solid var(--secondary);}
-        .ticker { display:flex; animation: ticker-scroll 60s linear infinite; white-space: nowrap; }
-        .ticker-item { display:flex; align-items:center; margin:0 20px; font-family: 'Bebas Neue', sans-serif; font-size: 18px; }
-        .ticker-symbol { font-weight:bold; margin-right:5px; color: var(--secondary); }
-        .ticker-price { margin-right:10px; }
-        .ticker-change { padding:2px 6px; border-radius:4px; font-size:0.8rem; }
-        .positive { background-color: #4caf50; }
-        .negative { background-color: #f44336; }
-
-        /* Left-to-Right ticker animation */
-        @keyframes ticker-scroll { 
-            0% { transform: translateX(-100%); } 
-            100% { transform: translateX(100%); } 
-        }
-
-        /* Navbar */
-        header { background-color: rgba(26,26,46,0.95); position: fixed; width:100%; z-index:1000; box-shadow:0 2px 15px rgba(0,0,0,0.1); top:0; }
-        .navbar { display:flex; justify-content:space-between; align-items:center; padding:15px 5%; }
-        .logo { height:50px; transition: transform 0.3s; }
-        .logo:hover { transform: scale(1.05); }
-        .nav-links { display:flex; list-style:none; }
-        .nav-links li { margin-left:30px; }
-        .nav-links a { color: var(--light); text-decoration:none; font-weight:500; transition: color 0.3s; position:relative; }
-        .nav-links a:after { content: ''; position:absolute; width:0; height:2px; bottom:-5px; left:0; background-color: var(--secondary); transition: width 0.3s; }
-        .nav-links a:hover { color: var(--secondary); }
-        .nav-links a:hover:after { width:100%; }
-        .menu-btn { display:none; font-size:1.5rem; color:white; cursor:pointer; }
-
-        /* Hero Section */
-        .hero { padding-top:120px; min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; position:relative; overflow:hidden; background: linear-gradient(135deg, rgba(106,64,191,0.1), rgba(56,182,255,0.1)); }
-        .hero-img { max-width:400px; width:100%; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.15); margin-bottom:2rem; }
-        .hero-text p { font-size:1.2rem; color:#555; margin-bottom:2rem; }
-        .cta-button { display:inline-block; padding:12px 30px; background:var(--gradient); color:white; text-decoration:none; border-radius:50px; font-weight:600; margin:5px; border:none; cursor:pointer; }
-        .cta-button:hover { transform:translateY(-3px); }
-
-        /* Token Section */
-        .token-section { padding:80px 0; background-color:white; }
-        .token-cards { display:flex; justify-content:center; flex-wrap:wrap; gap:30px; margin-top:40px; }
-        .token-card { background:white; border-radius:15px; padding:30px; text-align:center; flex:1; min-width:250px; max-width:300px; box-shadow:0 5px 20px rgba(0,0,0,0.08); border-top:5px solid var(--primary); }
-        .token-card h3 { color: var(--primary); margin-bottom:15px; font-size:1.5rem; }
-        .token-card p { font-size:1.2rem; font-weight:600; color: var(--dark); }
-
-        /* KYC Section */
-        .kyc-section { padding:80px 0; background-color:white; }
-        .kyc-steps { display:flex; justify-content:center; flex-wrap:wrap; gap:30px; margin-top:40px; }
-        .kyc-step { background:white; border-radius:15px; padding:30px; text-align:center; flex:1; min-width:250px; max-width:300px; box-shadow:0 5px 20px rgba(0,0,0,0.08); border-top:5px solid var(--accent); }
-        .kyc-step h3 { color: var(--accent); margin-bottom:15px; font-size:1.5rem; }
-        .step-number { display:flex; align-items:center; justify-content:center; width:40px; height:40px; background:var(--accent); color:white; border-radius:50%; margin:0 auto 15px; font-weight:bold; }
-
-        /* Footer */
-        footer { background-color: var(--dark); color:white; text-align:center; padding:40px 20px; }
-        .footer-logo { height:60px; margin-bottom:20px; opacity:0.8; }
-
-        /* Responsive */
-        @media(max-width:768px){ .menu-btn{display:block;} .nav-links{position:fixed;height:100vh;width:100%;flex-direction:column;clip-path:circle(0px at top right);background: var(--dark);top:0;left:0;transition:all 0.5s ease-out;padding-top:100px;text-align:center;} .nav-links.active{clip-path:circle(1000px at top right);} .nav-links li{margin:20px 0;} }
-
-    </style>
+  <!-- CSS -->
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: #111;
+      padding: 15px 0;
+    }
+    nav ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    nav ul li {
+      position: relative;
+    }
+    nav ul li a {
+      display: block;
+      padding: 12px 20px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    nav ul li a:hover {
+      background: #444;
+      border-radius: 5px;
+    }
+    nav ul li ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #222;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      min-width: 160px;
+      z-index: 1000;
+    }
+    nav ul li:hover ul {
+      display: block;
+    }
+    nav ul li ul li a {
+      padding: 10px 15px;
+      color: #fff;
+      font-weight: normal;
+    }
+    nav ul li ul li a:hover {
+      background: #555;
+    }
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(to right, #ff758c, #ff7eb3);
+      color: #fff;
+    }
+    .hero h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 48px;
+      margin: 0;
+    }
+    .hero p {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+    footer {
+      background: #111;
+      color: #ccc;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
 
-<!-- Crypto Ticker -->
-<div class="ticker-container">
-    <div class="ticker" id="ticker"></div>
-</div>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <a href="Arcade_Hub.html">Meme Game 🎮</a>
+          <ul>
+            <li><a href="Arcade_Hub.html">Arcade</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<!-- Navbar -->
-<header class="navbar">
-    <img src="https://shitzuinuofficial-ui.github.io/shitzuInuLogo.png" alt="ShitzuInu Logo" class="logo">
-    <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#token">Token</a></li>
-        <li><a href="#kyc">KYC</a></li>
-    </ul>
-</header>
+  <section class="hero">
+    <h1>Welcome to ShitzuInu</h1>
+    <p>The official community website of ShitzuInu Token 🚀</p>
+  </section>
 
-<!-- Hero Section -->
-<section class="hero" id="home">
-    <img src="https://shitzuinuofficial-ui.github.io/hero%20image.png" class="hero-img" alt="Hero Image">
-    <div class="hero-text">
-        <h1 class="text-4xl font-bold mb-6">Welcome to ShitzuInu</h1>
-        <p>The playful meme token taking crypto to the next level!</p>
-    </div>
-</section>
-
-<!-- Token Section -->
-<section class="token-section" id="token">
-    <div class="token-cards">
-        <div class="token-card">
-            <h3>ShitzuInu Token</h3>
-            <p>Symbol: SHITZU</p>
-        </div>
-    </div>
-</section>
-
-<!-- KYC Section -->
-<section class="kyc-section" id="kyc">
-    <div class="kyc-steps">
-        <div class="kyc-step">
-            <div class="step-number">1</div>
-            <h3>Verify Identity</h3>
-        </div>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer>
-    <img src="https://shitzuinuofficial-ui.github.io/shitzuInuLogo.png" class="footer-logo" alt="ShitzuInu Logo">
-    <p>&copy; 2025 ShitzuInu. All rights reserved.</p>
-</footer>
-
-<script>
-async function loadTicker() {
-    try {
-        let res = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1");
-        let data = await res.json();
-        let ticker = document.getElementById("ticker");
-        ticker.innerHTML = "";
-        data.forEach(coin => {
-            let item = document.createElement("div");
-            item.className = "ticker-item";
-            item.innerHTML = `<span class="ticker-symbol">${coin.symbol.toUpperCase()}</span><span class="ticker-price">$${coin.current_price.toLocaleString()}</span><span class="ticker-change ${coin.price_change_percentage_24h>=0?'positive':'negative'}">${coin.price_change_percentage_24h.toFixed(2)}%</span>`;
-            ticker.appendChild(item);
-        });
-    } catch(err) {
-        console.error("Ticker load error:", err);
-    }
-}
-loadTicker();
-setInterval(loadTicker, 60000);
-</script>
+  <footer>
+    <p>&copy; 2025 ShitzuInu. All Rights Reserved.</p>
+  </footer>
 
 </body>
 </html>
